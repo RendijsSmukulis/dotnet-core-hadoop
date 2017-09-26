@@ -12,3 +12,8 @@ This repo will contain the Docker image and C# sources used in my article on [co
 ```
 dotnet publish --runtime ubuntu.14.04-x64 -c Release
 ```
+
+## Building the Docker image 
+
+The docker image uses [sequenceiq/hadoop-ubuntu:2.6.0](https://hub.docker.com/r/sequenceiq/hadoop-ubuntu/~/dockerfile/) image as base, and adds .NET Core 2.0 support.
+
