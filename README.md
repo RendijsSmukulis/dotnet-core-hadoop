@@ -1,4 +1,4 @@
-# .NET Core 2.0 C# as Hadoop MapReduce Streaming jobs
+# Writing Hadoop MapReduce Streaming jobs in C# .NET Core 2.0
 
 Repository demonstrating how to uset .NET Core 2.0 C# with Hadoop MapReduce.
 
