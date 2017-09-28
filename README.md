@@ -17,3 +17,13 @@ dotnet publish --runtime ubuntu.14.04-x64 -c Release
 
 The docker image uses [sequenceiq/hadoop-ubuntu:2.6.0](https://hub.docker.com/r/sequenceiq/hadoop-ubuntu/~/dockerfile/) image as base, and adds .NET Core 2.0 support.
 
+To build the image, `cd` to `./docker-image` and run:
+```
+docker build -t hadoop-ubuntu-dotnet .
+```
+
+## Running the docker image
+
+```
+docker run -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
+```
