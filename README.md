@@ -41,7 +41,9 @@ under Windows, or
 ```
 docker run -v $(pwd):/dotnet-core-hadoop -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
 ```
-under Mac/Linux.
+under Mac/Linux (`%CD%`and `$(pwd)` == current directory.)
+
+
 ## Datasets
 
 The first dataset used in the blog post is located at `/datasets/reddit_top_100_cat_posts.json`. Since it'sonly used for the proof-of-concept MapReduce app,
