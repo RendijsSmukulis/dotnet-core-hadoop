@@ -35,15 +35,36 @@ docker run -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
 To have access to the code and sample data that's in this repo, mount the repo as a volume:
 
 ```
-docker run -v %CD%:/dotnet-core-hadoop -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
+docker run -v /path/to/the/repo:/dotnet-core-hadoop -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
 ```
-under Windows, or 
-```
-docker run -v $(pwd):/dotnet-core-hadoop -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
-```
-under Mac/Linux (`%CD%`and `$(pwd)` == current directory.)
-
 
 ## Datasets
 
 The first dataset used in the blog post is located at `/datasets/reddit_top_100_cat_posts.json`. Since it'sonly used for the proof-of-concept MapReduce app,
+
+
+## Running the map-reduce steps outside MapReduce framework
+```
+cd /dotnet-core-hadoop/dotnet-core-mapreduce
+cat /dotnet-core-hadoop/datasets/reddit_top_100_cat_posts.json | dotnet-core-mapper/bin/Release/netcoreapp2.0/ubuntu.14.04-x64/publish/dotnet-core-mapp
+er | sort | dotnet-core-reducer/bin/Release/netcoreapp2.0/ubuntu.14.04-x64/publish/dotnet-core-reducer
+```
+
+This should output something along the lines of:
+```
+i.imgur.com             35
+i.redd.it               22
+i.reddituploads.com     14
+imgur.com               29
+```
+
+## Running the map-reduce steps through MapReduce
+
+```
+cd /usr/local/hadoop
+bin/hdfs dfs -copyFromLocal /dotnet-core-hadoop/datasets
+bin/hdfs dfs -ls
+bin/hdfs dfs -ls datasets
+bin/hadoop jar share/hadoop/tools/lib/hadoop-streaming-2.6.0.jar -files /dotnet-core-hadoop/dotnet-core-mapreduce/dotnet-core-mapper/bin/Release/netcoreapp2.0/ubuntu.14.04-x64/publish,/dotnet-core-hadoop/dotnet-core-mapreduce/dotnet-core-reducer/bin/Release/netcoreapp2.0/ubuntu.14.04-x64/publish -mapper /dotnet-core-hadoop/dotnet-core-mapreduce/dotnet-core-mapper/bin/Release/netcoreapp2.0/ubuntu.14.04-x64/publish/dotnet-core-mapper -reducer /dotnet-core-hadoop/dotnet-core-mapreduce/dotnet-core-reducer/bin/Release/netcoreapp2.0/ubuntu.14.04-x64/publish/dotnet-core-reducer -input datasets/* -output /reddit-outputs2
+```
+
