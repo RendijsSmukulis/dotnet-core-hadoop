@@ -6,7 +6,7 @@ This repo will contain the Docker image and C# sources used in my blog post on [
 
 ## Building the C# projects
 
-- Ensure you have [.NET Core 2.0.0 installed](https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.0-download.md)
+- If you're building on your host machine (not inside the Docker image), make sure you have [.NET Core 2.0.0 installed](https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.0-download.md)
 - Navigate the the project you want to build, e.g. `.\dotnet-core-mapreduce\dotnet-core-mapper`.
 - Run a `dotnet publish` for the runtime you want to build. E.g., for Ubuntu 14.04, run:
 ```
@@ -25,13 +25,23 @@ To build the image, `cd` to `./docker-image` and run:
 docker build -t hadoop-ubuntu-dotnet .
 ```
 
-## Running the docker image
+## Running the Docker image
 
+To run the image without mounting any volumes, run:
 ```
 docker run -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
 ```
 
+To have access to the code and sample data that's in this repo, mount the repo as a volume:
+
+```
+docker run -v %CD%:/dotnet-core-hadoop -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
+```
+under Windows, or 
+```
+docker run -v $(pwd):/dotnet-core-hadoop -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
+```
+under Mac/Linux.
 ## Datasets
 
 The first dataset used in the blog post is located at `/datasets/reddit_top_100_cat_posts.json`. Since it'sonly used for the proof-of-concept MapReduce app,
-it's fairly small - only 100 lines. Each line is a JSON object representing a Reddit thread. 
