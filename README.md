@@ -38,4 +38,4 @@ under Windows, or
 ```
 docker run -v $(pwd):/dotnet-core-hadoop -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
 ```
-under Mac/Linux.
+under Mac/Linux (`%CD%`and `$(pwd)` == current directory.)
