@@ -2,7 +2,7 @@
 
 Repository demonstrating how to uset .NET Core 2.0 C# with Hadoop MapReduce.
 
-This repo will contain the Docker image and C# sources used in my article on [codevoid.io](https://codevoid.io).
+This repo will contain the Docker image and C# sources used in my blog post on [codevoid.io](https://codevoid.io).
 
 ## Building the C# projects
 
@@ -12,6 +12,9 @@ This repo will contain the Docker image and C# sources used in my article on [co
 ```
 dotnet publish --runtime ubuntu.14.04-x64 -c Release
 ```
+
+You will likely also want Visual Studio 2017 installed, you can download the Community Edition
+[here](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15) for free. 
 
 ## Building the Docker image 
 
@@ -27,3 +30,8 @@ docker build -t hadoop-ubuntu-dotnet .
 ```
 docker run -it hadoop-ubuntu-dotnet /etc/bootstrap.sh -bash
 ```
+
+## Datasets
+
+The first dataset used in the blog post is located at `/datasets/reddit_top_100_cat_posts.json`. Since it'sonly used for the proof-of-concept MapReduce app,
+it's fairly small - only 100 lines. Each line is a JSON object representing a Reddit thread. 
